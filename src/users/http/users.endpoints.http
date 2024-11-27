@@ -11,7 +11,6 @@ Content-Type: application/json
 {
   "_id": "674501e73458b5b62347c179",
   "username": "newuser",
-  "birthday": "1990-01-01",
   "phone": "1234567890",
   "email": "newuser@example.com",
   "password": "password123"
@@ -31,7 +30,6 @@ Content-Type: application/json
 
 {
   "username": "updateduser",
-  "birthday": "1990-01-01",
   "phone": "0987654321"
 }
 
