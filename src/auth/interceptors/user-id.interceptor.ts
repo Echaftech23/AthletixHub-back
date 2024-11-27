@@ -1,39 +1,42 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  Injectable,
+  CallHandler,
   ExecutionContext,
+  Injectable,
+  NestInterceptor,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private readonly jwtService: JwtService) {
-    super();
-  }
+export class UserIdInterceptor implements NestInterceptor {
+  constructor(private readonly jwtService: JwtService) {}
 
-  canActivate(context: ExecutionContext) {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-
-    if (!token) {
-      throw new UnauthorizedException('Token not found');
-    }
 
     try {
       const payload = this.jwtService.verify(token);
       request.user = payload;
     } catch (error) {
+      console.error('Token verification error:', error);
       throw new UnauthorizedException('Invalid token');
     }
 
-    return true;
+    return next.handle().pipe(
+      map((data) => {
+        return data;
+      }),
+    );
   }
 
   private extractTokenFromHeader(request: any): string | null {
     const authHeader = request.headers.authorization;
-    if (!authHeader) return null;
+    if (!authHeader) {
+      return null;
+    }
 
     const [type, token] = authHeader.split(' ');
     return type === 'Bearer' ? token : null;

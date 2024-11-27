@@ -5,5 +5,5 @@ export class CreateEventDto {
   location: string;
   price: number;
   capacity: number;
-  imageUrl: string;
+  image: string;
 }

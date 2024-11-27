@@ -1,0 +1,20 @@
+### Get all users
+GET http://localhost:3001/events
+Accept: application/json
+
+###
+
+### Create a new user
+POST http://localhost:3001/api/events
+Content-Type: application/json
+
+{
+  "_id": "6747a126280f5a57507851c5",
+  "name": "Sport For All",
+  "description": "Sport For All is a non-profit organization that provides sports equipment to underprivileged children.",
+  "date": "2021-12-01",
+  "location": "New York",
+  "price": 123,
+  "capacity": 100,
+  "image": "https://example.com/image.jpg",
+}
