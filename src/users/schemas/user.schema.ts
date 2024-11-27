@@ -16,11 +16,6 @@ export class User extends Document {
 
   @Prop({
     required: true,
-  })
-  birthday: string;
-
-  @Prop({
-    required: true,
     unique: true,
     trim: true,
   })
@@ -34,10 +29,7 @@ export class User extends Document {
   })
   email: string;
 
-  @Prop({
-    required: true,
-    select: false,
-  })
+  @Prop({ required: true })
   password: string;
 }
 

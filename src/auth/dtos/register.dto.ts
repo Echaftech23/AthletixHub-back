@@ -15,11 +15,11 @@ export class RegisterDto {
   username: string;
 
   @IsString()
-  @Matches(/^[0-9]{10}$/, { message: 'Phone number must be 10 digits' })
+  @Matches(/^\+?[0-9\s\-()]{10,25}$/, {
+    message:
+      'Phone number must be between 10 and 25 digits and can include country code, spaces, dashes, and parentheses',
+  })
   phone: string;
-
-  @IsString()
-  birthday: string;
 
   @IsEmail()
   email: string;
