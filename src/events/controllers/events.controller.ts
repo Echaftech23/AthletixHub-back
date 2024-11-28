@@ -6,24 +6,20 @@ import {
   Param,
   Delete,
   UseGuards,
-  UseInterceptors,
   Req,
 } from '@nestjs/common';
 import { EventsService } from '../providers/events.service';
 import { CreateEventDto } from '../dtos/create-event.dto';
-import { JwtAuthGuard } from '@/auth/guards/auth.guard';
-import { UserIdInterceptor } from '@/auth/interceptors/user-id.interceptor';
+import { AuthGuard } from '@/auth/guards/auth.guard';
 
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @UseInterceptors(UserIdInterceptor)
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createEventDto: CreateEventDto, @Req() req: any) {
-    const userId = req.user.sub.toString();
-    return this.eventsService.create(createEventDto, userId);
+    return this.eventsService.create(createEventDto, req.userId);
   }
 
   @Get()

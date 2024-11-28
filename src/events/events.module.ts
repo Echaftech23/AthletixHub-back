@@ -3,15 +3,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EventsService } from './providers/events.service';
 import { EventsController } from './controllers/events.controller';
 import { Event, EventSchema } from './schemas/event.schema';
-import { UserIdInterceptor } from '@/auth/interceptors/user-id.interceptor';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from '@/auth/strategies/jwt.strategy';
 
 @Module({
   imports: [
-    JwtModule,
     MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }]),
+    JwtModule,
   ],
   controllers: [EventsController],
-  providers: [EventsService, UserIdInterceptor],
+  providers: [EventsService, JwtStrategy],
 })
 export class EventsModule {}

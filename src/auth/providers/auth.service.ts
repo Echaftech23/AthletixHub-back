@@ -53,6 +53,7 @@ export class AuthService {
       };
     } catch (e) {
       console.log(e);
+      throw new ConflictException('Email already exists');
     }
   }
 
@@ -64,7 +65,7 @@ export class AuthService {
       return { access_token, user };
     } catch (e) {
       console.log(e);
-      throw e;
+      throw new UnauthorizedException('Invalid credentials');
     }
   }
 }
