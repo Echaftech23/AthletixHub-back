@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { EventsService } from '../providers/events.service';
 import { CreateEventDto } from '../dtos/create-event.dto';
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '@/auth/guards/auth.guard';
 import { UserIdInterceptor } from '@/auth/interceptors/user-id.interceptor';
 
 @Controller('events')
