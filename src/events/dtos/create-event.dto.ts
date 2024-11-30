@@ -1,9 +1,13 @@
 export class CreateEventDto {
-  name: string;
+  title: string;
   description: string;
   date: Date;
-  location: string;
+  time: string;
+  address: {
+    venue: string;
+    location: string;
+  };
   price: number;
   capacity: number;
-  image: string;
+  imageUrl: string;
 }

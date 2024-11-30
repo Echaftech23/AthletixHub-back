@@ -11,7 +11,7 @@ export class Event extends Document {
     required: true,
     trim: true,
   })
-  name: string;
+  title: string;
 
   @Prop({
     required: true,
@@ -28,7 +28,19 @@ export class Event extends Document {
     required: true,
     trim: true,
   })
-  location: string;
+  time: string;
+
+  @Prop({
+    type: {
+      venue: { type: String, required: true, trim: true },
+      location: { type: String, required: true, trim: true },
+    },
+    required: true,
+  })
+  address: {
+    venue: string;
+    location: string;
+  };
 
   @Prop({
     required: true,
@@ -44,7 +56,7 @@ export class Event extends Document {
     required: true,
     trim: true,
   })
-  image: string;
+  imageUrl: string;
 
   @Prop({
     type: Types.ObjectId,
