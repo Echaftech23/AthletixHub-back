@@ -1,4 +1,5 @@
 export class UpdateParticipantDto {
-  username: string;
-  phone: string;
+  username?: string;
+  phone?: string;
+  email?: string;
 }
