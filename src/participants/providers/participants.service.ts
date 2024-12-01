@@ -54,6 +54,20 @@ export class ParticipantService {
   }
 
   async delete(id: string): Promise<Participant | null> {
-    return this.participantModel.findByIdAndDelete(id).exec();
+    const participant = await this.participantModel
+      .findByIdAndDelete(id)
+      .exec();
+    if (!participant) {
+      throw new NotFoundException('Participant not found');
+    }
+
+    await this.eventModel
+      .updateMany(
+        { participants: participant._id },
+        { $pull: { participants: participant._id } },
+      )
+      .exec();
+
+    return participant;
   }
 }
