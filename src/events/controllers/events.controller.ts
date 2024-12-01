@@ -7,10 +7,12 @@ import {
   Delete,
   UseGuards,
   Req,
+  Put,
 } from '@nestjs/common';
 import { EventsService } from '../providers/events.service';
 import { CreateEventDto } from '../dtos/create-event.dto';
 import { AuthGuard } from '@/auth/guards/auth.guard';
+import { UpdateEventDto } from '../dtos/update-event.dto';
 
 @Controller('events')
 export class EventsController {
@@ -32,7 +34,11 @@ export class EventsController {
     return this.eventsService.findOne(id);
   }
 
-  
+  @UseGuards(AuthGuard)
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+    return this.eventsService.update(id, updateEventDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
