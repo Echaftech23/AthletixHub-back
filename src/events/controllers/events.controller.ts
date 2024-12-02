@@ -8,11 +8,14 @@ import {
   UseGuards,
   Req,
   Put,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { EventsService } from '../providers/events.service';
 import { CreateEventDto } from '../dtos/create-event.dto';
 import { AuthGuard } from '@/auth/guards/auth.guard';
 import { UpdateEventDto } from '../dtos/update-event.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('events')
 export class EventsController {
@@ -20,8 +23,13 @@ export class EventsController {
 
   @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createEventDto: CreateEventDto, @Req() req: any) {
-    return this.eventsService.create(createEventDto, req.userId);
+  @UseInterceptors(FileInterceptor('file'))
+  create(
+    @Body() createEventDto: CreateEventDto,
+    @Req() req: any,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.eventsService.create(createEventDto, req.userId, file);
   }
 
   @Get()

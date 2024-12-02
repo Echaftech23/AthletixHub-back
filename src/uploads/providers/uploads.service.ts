@@ -7,7 +7,6 @@ import {
 import { S3 } from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
-import { FileTypes } from '../enums/file-types.enum';
 import { Upload } from '../schemas/upload.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -77,16 +76,9 @@ export class UploadsService {
       const name = await this.uploadFile(file);
 
       //generate a new entry in the database
-      const uploadFile = {
-        name: name,
-        path: `https://${process.env.AWS_CLOUDFRONT_URL}/${name}`,
-        type: FileTypes.IMAGE,
-        mime: file.mimetype,
-        size: file.size,
-      };
+      const ImageUrl = `https://${process.env.AWS_CLOUDFRONT_URL}/${name}`;
 
-      const upload = await this.uploadModel.create(uploadFile);
-      return upload;
+      return ImageUrl;
     } catch (error) {
       throw new ConflictException(error);
     }

@@ -32,16 +32,9 @@ export class Event extends Document {
   time: string;
 
   @Prop({
-    type: {
-      venue: { type: String, required: true, trim: true },
-      location: { type: String, required: true, trim: true },
-    },
     required: true,
   })
-  address: {
-    venue: string;
-    location: string;
-  };
+  address: string;
 
   @Prop({
     required: true,

@@ -10,5 +10,6 @@ import { Upload, UploadSchema } from './schemas/upload.schema';
   ],
   controllers: [UploadsController],
   providers: [UploadsService],
+  exports: [UploadsService],
 })
 export class UploadsModule {}
