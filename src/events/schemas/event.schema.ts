@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { Participant } from '../../participants/schemas/participant.schema';
 
@@ -32,16 +32,9 @@ export class Event extends Document {
   time: string;
 
   @Prop({
-    type: {
-      venue: { type: String, required: true, trim: true },
-      location: { type: String, required: true, trim: true },
-    },
     required: true,
   })
-  address: {
-    venue: string;
-    location: string;
-  };
+  address: string;
 
   @Prop({
     required: true,
@@ -67,7 +60,7 @@ export class Event extends Document {
   owner: User;
 
   @Prop({
-    type: [{ type: Types.ObjectId, ref: 'Participant' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participant' }],
     default: [],
   })
   participants: Participant[];
