@@ -35,8 +35,12 @@ export class EventsService {
     return this.eventModel.find().exec();
   }
 
-  findOne(id: string) {
-    return this.eventModel.findById(id).exec();
+  async findOne(id: string): Promise<Event> {
+    const event = await this.eventModel
+      .findById(id)
+      .populate('participants', 'username email phone')
+      .exec();
+    return event;
   }
 
   async update(id: string, updateEventDto: UpdateEventDto): Promise<Event> {
