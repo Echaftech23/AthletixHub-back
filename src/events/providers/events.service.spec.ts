@@ -73,13 +73,16 @@ describe('EventsService', () => {
       const mockEvent = { _id: mockEventId, title: 'Test Event' } as Event;
 
       mockEventModel.findById.mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockEvent),
+        populate: jest.fn().mockReturnValue({
+          exec: jest.fn().mockResolvedValue(mockEvent),
+        }),
       });
 
       const result = await service.findOne(mockEventId);
 
       expect(result).toEqual(mockEvent);
       expect(mockEventModel.findById).toHaveBeenCalledWith(mockEventId);
+      expect(mockEventModel.findById().populate).toHaveBeenCalledWith('participants', 'username email phone');
     });
   });
 
