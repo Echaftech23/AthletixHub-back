@@ -11,14 +11,11 @@ import { UploadsService } from './providers/uploads.service';
 export class UploadsController {
   constructor(private readonly uploadsService: UploadsService) {}
 
-  @Post()
+  @Post('file')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     try {
-      console.log('Received file:', file);
-      const result = await this.uploadsService.uploadFile(file);
-      console.log('File uploaded successfully:', result);
-      return result;
+      return await this.uploadsService.uploadFile(file);
     } catch (error) {
       console.error('Error uploading file:', error);
       throw error;
