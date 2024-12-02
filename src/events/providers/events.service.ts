@@ -4,7 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Event } from '../schemas/event.schema';
 import { CreateEventDto } from '../dtos/create-event.dto';
 import { UpdateEventDto } from '../dtos/update-event.dto';
-import { UploadsService } from '@/uploads/providers/uploads.service';
+import { UploadsService } from '../../uploads/providers/uploads.service';
 
 @Injectable()
 export class EventsService {
