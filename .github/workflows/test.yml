@@ -57,11 +57,13 @@ jobs:
             message="${message}\nLink: ${{github.event.pull_request.html_url}}"
           fi
 
-          curl -X POST \
+          response=$(curl -X POST \
             -H 'Content-type: application/json' \
             -H 'Authorization: Bearer ${{ secrets.SLACK_TOKEN}}' \
             --data "{\"channel\":\"#sportfit-back-tests\",\"text\":\"$message\"}" \
-            https://slack.com/api/chat.postMessage
+            https://slack.com/api/chat.postMessage)
+
+          echo "Slack API response: $response"
 
       - name: Slack Notification on Test Failure
         if: steps.run-tests.outcome == 'failure'
@@ -73,8 +75,10 @@ jobs:
             message="${message}\nLink: ${{github.event.pull_request.html_url}}"
           fi
           
-          curl -X POST \
+          response=$(curl -X POST \
             -H 'Content-type: application/json' \
             -H 'Authorization: Bearer ${{ secrets.SLACK_TOKEN}}' \
             --data "{\"channel\":\"#sportfit-back-tests\",\"text\":\"$message\"}" \
-            https://slack.com/api/chat.postMessage
+            https://slack.com/api/chat.postMessage)
+
+          echo "Slack API response: $response"
