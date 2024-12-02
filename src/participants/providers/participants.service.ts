@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Participant } from '../schemas/participant.schema';
@@ -22,13 +26,17 @@ export class ParticipantService {
   async create(
     createParticipantDto: CreateParticipantDto,
   ): Promise<Participant> {
-    const createdParticipant = new this.participantModel(createParticipantDto);
-    const participant = await createdParticipant.save();
-
     const event = await this.eventModel.findById(createParticipantDto.eventId);
     if (!event) {
       throw new NotFoundException('Event not found');
     }
+
+    if (event.participants.length >= event.capacity) {
+      throw new BadRequestException('Event capacity exceeded');
+    }
+
+    const createdParticipant = new this.participantModel(createParticipantDto);
+    const participant = await createdParticipant.save();
 
     event.participants.push(participant._id as any);
     await event.save();
