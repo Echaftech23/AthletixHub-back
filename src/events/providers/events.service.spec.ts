@@ -82,7 +82,10 @@ describe('EventsService', () => {
 
       expect(result).toEqual(mockEvent);
       expect(mockEventModel.findById).toHaveBeenCalledWith(mockEventId);
-      expect(mockEventModel.findById().populate).toHaveBeenCalledWith('participants', 'username email phone');
+      expect(mockEventModel.findById().populate).toHaveBeenCalledWith(
+        'participants',
+        'username email phone',
+      );
     });
   });
 
