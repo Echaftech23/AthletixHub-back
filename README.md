@@ -1,6 +1,6 @@
-# SportFit
+# AthletixHub 
 
-SportFit is a web application designed to manage sports events, participants, and user authentication. It provides comprehensive functionalities for creating, updating, and deleting events, managing participants, and handling secure user authentication with JWT.
+AthletixHub is a web application designed to manage sports events, participants, and user authentication. It provides comprehensive functionalities for creating, updating, and deleting events, managing participants, and handling secure user authentication with JWT.
 
 ## 🚀 Features
 
@@ -33,8 +33,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Echaftech23/sportfit.git
-cd sportfit
+git clone https://github.com/Echaftech23/AthletixHub .git
+cd AthletixHub 
 ```
 
 ### 2. Install Dependencies
@@ -96,29 +96,29 @@ npm run start:prod
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `DATABASE_URL` | MongoDB connection string | `mongodb://localhost:27017/sportfit` |
+| `DATABASE_URL` | MongoDB connection string | `mongodb://localhost:27017/AthletixHub ` |
 | `PORT` | Application running port | `3001` |
 | `JWT_SECRET` | Secret key for token generation | `your-secret-key` |
 | `JWT_EXPIRATION_TIME` | Token validity duration | `3600s` |
 | `AWS_ACCESS_KEY_ID` | AWS S3 access key | `AKIAIOSFODNN7EXAMPLE` |
 | `AWS_SECRET_ACCESS_KEY` | AWS S3 secret key | `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` |
 | `AWS_REGION` | AWS S3 region | `us-east-1` |
-| `AWS_PUBLIC_BUCKET_NAME` | S3 bucket name | `sportfit-uploads` |
+| `AWS_PUBLIC_BUCKET_NAME` | S3 bucket name | `AthletixHub -uploads` |
 | `AWS_CLOUDFRONT_URL` | CloudFront distribution URL | `https://d111111abcdef8.cloudfront.net` |
 
 ## 🐳 Docker Deployment
 
 ### Build Docker Image
 ```bash
-docker build -t sportfit-back .
+docker build -t AthletixHub -back .
 ```
 
 ### Run Docker Container
 ```bash
-docker run -d -p 3001:3001 --name sportfit-back-container \
+docker run -d -p 3001:3001 --name AthletixHub -back-container \
   -e DATABASE_URL=your_database_url \
   -e JWT_SECRET=your_jwt_secret \
-  sportfit-back
+  AthletixHub -back
 ```
 
 ## 🧪 Testing
